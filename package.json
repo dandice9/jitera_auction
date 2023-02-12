@@ -1,0 +1,22 @@
+{
+  "name": "jitera_auction",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/dandice9/jitera_auction.git"
+  },
+  "keywords": [
+    "auction"
+  ],
+  "author": "dandi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dandice9/jitera_auction/issues"
+  },
+  "homepage": "https://github.com/dandice9/jitera_auction#readme"
+}
