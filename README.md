@@ -1,6 +1,7 @@
 # Jitera Auction
 
 Live Demo: https://jitera.devserv.lol/
+Database Diagram: https://drive.google.com/file/d/12PCcpH0_VPueERL5gnFJop1juCiSgaPy/view?usp=sharing
 
 ## System Requirements
 - PostgreSQL Server
