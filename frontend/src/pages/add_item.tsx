@@ -4,6 +4,7 @@ import { useState } from "react"
 import Datepicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 import moment from 'moment'
+import { useNavigate } from "react-router-dom";
 
 const AddItem = () => {
     const createItemCall = trpc.addItem.useMutation()
@@ -14,6 +15,7 @@ const AddItem = () => {
     const [isDescriptionError, setIsDescriptionError] = useState(false)
     const [startDate, setStartDate] = useState(moment().startOf('day').toDate());
     const [endDate, setEndDate] = useState(moment().endOf('day').toDate());
+    const navigate = useNavigate();
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
@@ -58,7 +60,7 @@ const AddItem = () => {
                 <Grid>
                     <Grid.Column textAlign="center">
                         <Button disabled={createItemCall.isLoading} color="teal">Add Item</Button>
-                        <Button disabled={createItemCall.isLoading} onClick={() => window.location.replace('/')} type="reset" color="red">Cancel</Button>
+                        <Button disabled={createItemCall.isLoading} onClick={() => navigate('/')} type="reset" color="red">Cancel</Button>
                     </Grid.Column>
                 </Grid>
             </Form.Field>

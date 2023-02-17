@@ -1,11 +1,12 @@
 import { useState } from "react"
 import { Form, Segment, Button, Grid, Message } from "semantic-ui-react"
 import { trpc } from "../utils/trpc"
-import { useOutletContext } from "react-router-dom"
+import { useNavigate, useOutletContext } from "react-router-dom"
 import { UseTRPCQueryResult } from "@trpc/react-query/dist/shared"
 
 const Deposit = () => {
     const [amount, setAmount] = useState('10')
+    const navigate = useNavigate();
     const profileQuery = useOutletContext() as UseTRPCQueryResult<any, any>
     const depositCall = trpc.deposit.useMutation({
         onSuccess: () => {
@@ -28,7 +29,7 @@ const Deposit = () => {
                 <Grid>
                     <Grid.Column textAlign="center">
                         <Button disabled={depositCall.isLoading} color="teal">Deposit</Button>
-                        <Button disabled={depositCall.isLoading} onClick={() => window.location.replace('/')} type="reset" color="red">Cancel</Button>
+                        <Button disabled={depositCall.isLoading} onClick={() => navigate('/')} type="reset" color="red">Cancel</Button>
                     </Grid.Column>
                 </Grid>
             </Segment>

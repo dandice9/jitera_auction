@@ -48,7 +48,7 @@ const StickyLayout = () => {
 
   if(profileQuery.isError){
     localStorage.removeItem('token')
-    window.location.replace('/login')
+    navigate('/login')
   }
 
   return (
@@ -77,10 +77,10 @@ const StickyLayout = () => {
                             <small>{profileQuery.isLoading ? 'loading..' : `My Balance: $${profileQuery.data?.balance}`}</small>
                           </Dropdown.Item>
                           <Dropdown.Divider />
-                          <Dropdown.Item>
+                          <Dropdown.Item onClick={() => navigate('/add_item')}>
                             <Link to="/add_item">Create new bid</Link>
                           </Dropdown.Item>
-                          <Dropdown.Item>
+                          <Dropdown.Item onClick={() => navigate('/deposit')}>
                             <Link to="/deposit">Deposit</Link>
                           </Dropdown.Item>
                           <Dropdown.Divider />
