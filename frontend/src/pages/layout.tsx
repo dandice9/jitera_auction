@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, Outlet, useNavigate } from 'react-router-dom'
+import { Link, Navigate, Outlet, useNavigate } from 'react-router-dom'
 import {
   Container,
   Dropdown,
@@ -40,7 +40,9 @@ const StickyLayout = () => {
 
   if(!token)
   {
-    window.location.replace('/login')
+    navigate('/login')
+
+    return <Navigate to="/login" replace={true} />
   }
   
   const profileQuery = trpc.check.useQuery()
