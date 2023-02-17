@@ -1,18 +1,31 @@
 # Jitera Auction
 
-## setup
+## System Requirements
+- PostgreSQL Server
+- Node JS 14.x or higher
+
+
+## Setup
 ```
 git clone git@github.com:dandice9/jitera_auction.git
 cd jitera_auction
+cp .env.example .env
+```
+edit .env and configure 
+```
 cd frontend && npm install
 cd ../server && npm install
 npx prisma migrate dev
 ```
 
-## run on local
+## Local debugging
 backend server:
 `cd server && npm run dev`
+open http://localhost:4000 or any port configured in .env
+
+or can be executed via visual studio code debugger: https://code.visualstudio.com/docs/typescript/typescript-debugging
 
 frontend server:
 `cd frontend && npm run dev`
+open http://localhost:3000
 
