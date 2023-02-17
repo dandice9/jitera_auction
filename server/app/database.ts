@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, User } from '@prisma/client'
 import { Decimal } from '@prisma/client/runtime'
 import * as moment from 'moment'
 
@@ -126,6 +126,29 @@ class WriteDatabase{
                         is_completed: false
                     }
                 })
+            },
+            call: async (id: number, price: number, user: User) => {
+
+                const pre_balance = user.balance
+                const post_balance = user.balance.sub(price)
+
+                return this.transaction([
+                    this.db.bidItem.update({
+                        where: { id },
+                        data: { bid_price: price }
+                    }),
+                    this.db.userBid.create({
+                        data: {
+                            bid_amount: price,
+                            pre_balance,
+                            post_balance,
+                            user_id: user.id,
+                            item_id: id,
+                            is_bid_success: false,
+                            is_completed: false
+                        }
+                    })
+                ])
             }
         }
     }

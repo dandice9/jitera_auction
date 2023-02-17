@@ -140,6 +140,7 @@ const trpcRouter = trpc.router({
                                 const md = remaining % 60
 
                                 return {
+                                    id: item.id,
                                     name: item.name,
                                     description: item.description,
                                     price: item.bid_price,
@@ -154,15 +155,16 @@ const trpcRouter = trpc.router({
                             const closedList = await Database.read.item.allClosed()
                             
                             return closedList.map(item => {
-                                const remaining = moment(item.bid_end_at).diff(moment(), 'minute')
+                                const remaining = moment().diff(moment(item.bid_end_at), 'minute')
                                 const hd = Math.floor(remaining / 60)
                                 const md = remaining % 60
 
                                 return {
+                                    id: item.id,
                                     name: item.name,
                                     description: item.description,
                                     price: item.bid_price,
-                                    duration: `${hd}hr ${md}min`,
+                                    duration: `${hd}hr ${md}min ago`,
                                     closed_at: Date.now()
                                 }
                             })
@@ -194,6 +196,53 @@ const trpcRouter = trpc.router({
                                     bid_end_at
                                 )
                             } catch (error) {
+                                throw new TRPCError({
+                                    code: 'INTERNAL_SERVER_ERROR',
+                                    message: 'An unexpected error occurred, please try again later.',
+                                    // optional: pass the original error to retain stack trace
+                                    cause: error,
+                                    });
+                            }
+                        }),
+
+    bidItem: trpc.protectedProcedure
+                        .input(z.object({
+                            id: z.number(),
+                            bid_price: z.number()
+                        }))
+                        .mutation(async (req) => {
+                            const { input, ctx } = req
+                            const {
+                                id,
+                                bid_price
+                            } = input
+
+                            try {
+                                const item = await Database.read.item.find(id)
+                                const user = await Database.read.user.check(ctx.email)
+
+                                if(!item) {
+                                    throw new Error('item not found')
+                                }
+                                if(item.bid_price.sub(bid_price).toNumber() > 0){
+                                    throw new Error('bid must be higher')
+                                }
+                                if(!user){
+                                    throw new Error('please sign in first')
+                                }
+                                if(user.balance.sub(bid_price).toNumber() < 0){
+                                    throw new Error('insufficient credit value')
+                                }
+
+                                return Database.write.bid.call(id, bid_price, user)
+                            } catch (error) {
+                                if(error instanceof Error){
+                                    throw new TRPCError({
+                                        code: 'INTERNAL_SERVER_ERROR',
+                                        message: error.message,
+                                        });
+                                }
+                                
                                 throw new TRPCError({
                                     code: 'INTERNAL_SERVER_ERROR',
                                     message: 'An unexpected error occurred, please try again later.',

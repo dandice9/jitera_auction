@@ -1,4 +1,4 @@
-import { Form, Segment, Button, Grid, Message, TextArea } from "semantic-ui-react"
+import { Form, Segment, Button, Grid, Message } from "semantic-ui-react"
 import { trpc } from "../utils/trpc"
 import { useState } from "react"
 import Datepicker from 'react-datepicker'
