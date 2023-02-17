@@ -1,6 +1,7 @@
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
 import { trpc } from '../utils/trpc';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('')
@@ -8,6 +9,8 @@ const Login = () => {
   
   const loginCall = trpc.login.useMutation()
   const token = localStorage.getItem('token')
+  
+  const navigate = useNavigate();
 
   const handleLogin = () => {
     loginCall.mutate({
@@ -16,12 +19,12 @@ const Login = () => {
   }
 
   if(token){
-    window.location.replace('/')
+    navigate('/')
   }
 
   if(loginCall.isSuccess){
     localStorage.setItem('token', loginCall.data.token)
-    window.location.replace('/')
+    navigate('/')
   }
 
   return (

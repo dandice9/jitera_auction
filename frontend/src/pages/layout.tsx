@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Link, Outlet, useNavigate } from 'react-router-dom'
 import {
   Container,
   Dropdown,
@@ -26,6 +26,7 @@ const fixedMenuStyle = {
 
 const StickyLayout = () => {
   const [menuFixed, setMenuFixed] = useState(false)
+  const navigate = useNavigate();
 
   const stickTopMenu = () => setMenuFixed(true)
   const unStickTopMenu = () => setMenuFixed(false)
@@ -34,12 +35,12 @@ const StickyLayout = () => {
 
   const signOutAction = () => {
     localStorage.removeItem('token');
-    window.location.replace('/')
+    navigate('/')
   }
 
   if(!token)
   {
-    window.location.replace('/login')
+    navigate('/login')
     return <></>
   }
   
@@ -77,10 +78,10 @@ const StickyLayout = () => {
                           </Dropdown.Item>
                           <Dropdown.Divider />
                           <Dropdown.Item>
-                            <a href="/add_item">Create new bid</a>
+                            <Link to="/add_item">Create new bid</Link>
                           </Dropdown.Item>
                           <Dropdown.Item>
-                            <a href="/deposit">Deposit</a>
+                            <Link to="/deposit">Deposit</Link>
                           </Dropdown.Item>
                           <Dropdown.Divider />
                           <Dropdown.Item onClick={signOutAction}>Sign Out</Dropdown.Item>
