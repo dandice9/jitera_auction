@@ -19,6 +19,7 @@ cp .env.example .env
 ```
 edit .env and configure 
 ```
+npx prisma generate
 npx prisma migrate dev
 ```
 
