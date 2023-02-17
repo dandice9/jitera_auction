@@ -22,7 +22,7 @@ function App() {
         trpc.createClient({
         links: [
             httpBatchLink({
-                url: window.location.host === 'localhost:3000' ? 'http://localhost:4000/trpc' : '/trpc',
+                url: window.location.host === 'localhost:3000' ? 'http://localhost:4000/api/trpc' : '/api/trpc',
                 headers: {
                     Authorization: token ?? ''
                 }

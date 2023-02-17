@@ -10,10 +10,10 @@ dotenv.config()
 const app = express();
 
 app.use(
-    '/trpc', cors(), expressMiddleware
+    '/api/trpc', cors(), expressMiddleware
 );
 
-app.get('/ping', (req, res) => {
+app.get('/api/ping', (req, res) => {
     return res.send('pong!')
 })
 
