@@ -9,12 +9,12 @@
 ```
 git clone git@github.com:dandice9/jitera_auction.git
 cd jitera_auction
+cd frontend && npm install
+cd ../server && npm install
 cp .env.example .env
 ```
 edit .env and configure 
 ```
-cd frontend && npm install
-cd ../server && npm install
 npx prisma migrate dev
 ```
 
