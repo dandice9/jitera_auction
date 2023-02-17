@@ -35,13 +35,14 @@ const StickyLayout = () => {
 
   const signOutAction = () => {
     localStorage.removeItem('token');
-    navigate('/')
+
+    window.location.replace('/')
+    
+    return <Navigate to="/login" replace={true} />
   }
 
   if(!token)
   {
-    navigate('/login')
-
     return <Navigate to="/login" replace={true} />
   }
   

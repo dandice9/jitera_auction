@@ -17,20 +17,22 @@ import { trpc } from './utils/trpc';
 
 function App() {
     const token = localStorage.getItem('token')
+
     const [queryClient] = useState(() => new QueryClient());
     const [trpcClient] = useState(() =>
-        trpc.createClient({
-        links: [
-            httpBatchLink({
-                url: window.location.host === 'localhost:3000' ? 'http://localhost:4000/api/trpc' : `${window.location.origin}/api/trpc`,
-                headers: {
-                    Authorization: token ?? ''
-                }
-            }),
-            
-        ],
+            trpc.createClient({
+            links: [
+                httpBatchLink({
+                    url: window.location.host === 'localhost:3000' ? 'http://localhost:4000/api/trpc' : '/api/trpc',
+                    headers: {
+                        Authorization: token ?? ''
+                    }
+                }),
+                
+            ],
         }),
     );
+
     return (
         <trpc.Provider client={trpcClient} queryClient={queryClient}>
         <QueryClientProvider client={queryClient}>
