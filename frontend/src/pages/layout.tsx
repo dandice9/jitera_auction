@@ -40,8 +40,7 @@ const StickyLayout = () => {
 
   if(!token)
   {
-    navigate('/login')
-    return <></>
+    window.location.replace('/login')
   }
   
   const profileQuery = trpc.check.useQuery()
