@@ -224,7 +224,7 @@ const trpcRouter = trpc.router({
                                 if(!item) {
                                     throw new Error('item not found')
                                 }
-                                if(item.bid_price.sub(bid_price).toNumber() > 0){
+                                if(item.bid_price.sub(bid_price).toNumber() >= 0){
                                     throw new Error('bid must be higher')
                                 }
                                 if(!user){
